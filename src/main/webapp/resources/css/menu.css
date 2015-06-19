@@ -1,0 +1,45 @@
+
+body.blue{
+    
+    background-color: #F2FAFA;
+}
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+a:link, a:visited {
+    display: block;
+    width: 160px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #3186A8;
+    text-align: center;
+    padding: 8px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+a:hover, a:active {
+    background-color: #124357;
+}
+
+
+.imagenUdc{
+    
+    position: absolute;
+    width: 70%;
+    height: 20%;
+    top: 50px;
+    left:250px;
+    
+    
+}

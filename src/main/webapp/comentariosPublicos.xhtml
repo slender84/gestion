@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+   
+    <h:head>
+        <title>Comentarios</title>
+        <h:outputStylesheet library="css" name="estilos.css"/>
+    </h:head>
+    <h:body onload="PF('cronicaTable').filter()" styleClass="blue">
+        
+         <h2 style="text-align: center">Comentarios</h2>
+        
+        
+       
+         
+         
+         <h:form id="formPais">
+             <p:growl id="msgs" />
+             <p:selectOneMenu value="#{cronicasController.pais}" required="true" requiredMessage="hay que elegir un pais" filter="true" filterMatchMode="startsWith">
+                <p:ajax event="change" listener="#{cronicasController.onChangePais()}" update=":formUniversidad :formPais:msgs :formCronica"/>
+                <f:selectItem itemLabel="elige un país"  noSelectionOption="true"/>
+                <f:selectItems var="pais" value="#{paisController.listaPaises}" itemValue="#{pais.nombre}" itemLabel="#{pais.nombre}"/>
+            
+            </p:selectOneMenu>
+            
+        </h:form>
+        <br/>
+        <h:form id="formUniversidad">
+            <p:selectOneMenu value="#{cronicasController.universidad}" required="true" requiredMessage="hay que elegir una universidad de destino" rendered="#{cronicasController.checkPais}"
+                             filter="true" filterMatchMode="startsWith">
+                <p:ajax event="change" listener="#{cronicasController.onChangeUni}" update=":formUniversidad :formPais :formCronica"/>
+                <f:selectItem itemLabel="elige una universidad" itemValue="#{null}" noSelectionOption="true"/>
+                <f:selectItems value="#{cronicasController.listaUniversidad}" var="universidad" itemLabel="#{universidad.nombre}" itemValue="#{universidad.nombre}"/>
+                
+            </p:selectOneMenu>
+            <br/><br/>
+            <p:commandButton value="mostrar" action="#{cronicasController.buscar}" update=":formCronica :formPais" rendered="#{cronicasController.checkUni}"/>
+            
+        </h:form>
+        
+        <br/><br/><br/>
+         
+       
+        
+        <h:form id="formCronica">
+            
+            <h:outputText value="no hay comentarios" rendered="#{cronicasController.listaCronicas.size() eq 0}"/>
+            
+            <ui:repeat value="#{cronicasController.listaCronicas}" var="comentario">
+            
+                <h:outputText value="#{comentario.alias} "/>
+                <h:outputText value="#{comentario.fecha}">
+                    <f:convertDateTime pattern="dd-MM-yyyy"/>
+                </h:outputText>
+                <br/><br/>
+                <h:outputText value="#{comentario.texto}" styleClass="preformat" />
+                <br/><br/><br/><br/>
+            
+            
+            
+            
+            </ui:repeat>
+            
+             
+            
+            
+        </h:form>
+        <br/>
+        <br/>
+        
+       
+            
+            <br/><br/>
+            
+            
+             <h:outputLink value="principal.xhtml"><h:graphicImage  value="/resources/iniciar-icono-4628-48.png"/></h:outputLink>
+            
+        
+        
+            
+                
+        
+              
+        
+        
+        
+    </h:body>
+</html>
+
+
+
+
+
+

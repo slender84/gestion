@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
+    <h:head>
+        <title>Crear tutor</title>
+        <h:outputStylesheet library="css" name="estilos.css"/>
+    </h:head>
+    <h:body styleClass="blue">
+        <ezcomp:out/>
+        <h2 style="text-align: center;">Crear tutor</h2>
+        
+        
+     <h:form id="form1">
+         <p:growl/>
+         <h:panelGrid id="panel1" columns="2" cellpadding="5">
+             <p:outputLabel value="login"/>
+            <p:inputText value="#{crearAdminController.login}" required="true" requiredMessage="El campo login está vacío"
+                         validatorMessage="Máximo 50 caracteres">
+                <f:validateLength maximum="50"/>
+            </p:inputText>
+            <p:outputLabel value="password"/>
+            <p:password value="#{crearAdminController.password}" required="true" requiredMessage="El campo password está vacío"
+                        validatorMessage="Máximo 40 caracteres">
+                <f:validateLength maximum="40"/>
+            </p:password>
+            <p:outputLabel value="repetir password"/>
+            <p:password value="#{crearAdminController.passwordAux}" required="true" requiredMessage="El campo repetir password está vacío"/>
+            <p:commandButton value="crear" action="#{crearAdminController.crearAdmin}" update="form1"/>
+           </h:panelGrid>
+           
+      </h:form>
+        
+        <br/><br/>
+       <h:outputLink value="#{request.contextPath}/admin/index.xhtml"><h:graphicImage value="/resources/iniciar-icono-4628-48.png"/></h:outputLink>
+            
+        
+        
+          <br/>  
+                
+       
+            
+        
+    </h:body>
+
+    
+</html>

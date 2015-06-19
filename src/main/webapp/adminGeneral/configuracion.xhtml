@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
+    <h:head>
+        <title>Configuración de correo</title>
+        <h:outputStylesheet library="css" name="estilos.css"/>
+    </h:head>
+    <h:body styleClass="blue">
+        <ezcomp:out/>
+        <h3 style="text-align: center">configuración</h3>
+        
+        
+        
+        <h:form id="f1">
+            <p:growl id="msgs" />
+            <h:panelGrid columns="3" cellpadding="6">
+                
+                <p:outputLabel value="dirección completa"/>
+                <p:inputText value="#{configuracionCorreoController.correoConf.direccion}" required="true"
+                             requiredMessage="el campo direccion está vacío"/>
+                <p:outputLabel/>
+                <p:outputLabel value="password"/>
+                <p:password  value="#{configuracionCorreoController.nuevoPassword}" />
+                <p:outputLabel value="(Si está vacío, se conserva el antiguo valor)"/>
+               
+                <p:outputLabel value="smtpPort"/>
+                <p:inputText value="#{configuracionCorreoController.correoConf.smtpPort}" required="true" requiredMessage="El campo smtpPort está vacío"/>
+                <p:outputLabel/>
+                <p:outputLabel value="host name"/>
+                <p:inputText value="#{configuracionCorreoController.correoConf.hostName}" required="true" requiredMessage="El campo hostName está vacío"/>
+                <p:outputLabel/>
+                <p:outputLabel value="dominio del receptor"/>
+                <p:inputText value="#{configuracionCorreoController.correoConf.addTo}" required="true" requiredMessage="El campo de dominio del receptor está vacío"
+                             validatorMessage="el la expresión del dominio es incorrecta, debe ser por ejemplo udc.es">
+                    <f:validateRegex pattern="[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                </p:inputText>
+                <p:outputLabel/>
+                
+            </h:panelGrid>
+            
+        
+        
+        <p:separator/>
+        
+        
+        
+        
+            <h:panelGrid columns="2" cellspacing="5">
+                
+                <p:outputLabel value="Permitir edición de las asignaturas de origen"/>
+                <p:selectBooleanCheckbox value="#{configuracionCorreoController.correoConf.permitirAlumnos}"/>
+                <p:outputLabel value="Permitir edición de las asignaturas de destino"/>
+                <p:selectBooleanCheckbox value="#{configuracionCorreoController.correoConf.permitirAlumnosDestino}"/>
+                <p:outputLabel value="Cargar todas las movilidades si no hay filtros" />
+                <p:selectBooleanCheckbox value="#{configuracionCorreoController.correoConf.cargarTodasMovilidades}" disabled="#{sessionController.correoConf.pageToPage eq 'true'}"/>
+                <p:outputLabel value="Cargar todos los contratos si no hay filtros" />
+                <p:selectBooleanCheckbox value="#{configuracionCorreoController.correoConf.cargarTodosContratos}" disabled="#{sessionController.correoConf.pageToPage eq 'true'}"/>
+                <p:outputLabel value="Utilizar page-by-page iterator"/>
+                <p:selectBooleanCheckbox value="#{configuracionCorreoController.correoConf.pageToPage}"/>
+            </h:panelGrid> 
+                <p:separator/>
+                
+                <h:panelGrid columns="2" cellspacing="5">
+                    
+                    <p:outputLabel value="Dirección de recepción de notificaciones"/>
+                    <p:inputText value="#{configuracionCorreoController.correoConf.direccionAdmin}"
+                                 validatorMessage="Debe ser un correo válido, por ejemplo user@abc.es o user2@cde.com">
+                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                    </p:inputText>
+                    <p:outputLabel value="Notificar por correo cuando el alumno crea o edita asignaturas"/>
+                    <p:selectBooleanCheckbox value="#{configuracionCorreoController.correoConf.notificarAsignaturas}"/>
+                    <p:outputLabel value="Permitir enviar copia"/>
+                    <p:selectBooleanCheckbox value="#{configuracionCorreoController.correoConf.permitirCopia}"/>
+                    
+                    <h:outputLink value="#{request.contextPath}/adminGeneral/direcciones.xhtml">Direcciones para enviar copia</h:outputLink>
+                    
+                </h:panelGrid>    
+                
+                
+                
+            
+            
+            <br/>
+            <br/>
+            
+            <p:commandButton  value="guardar cambios" action="#{configuracionCorreoController.editarConfiguracion}" update=":f1:msgs" ajax="false"/> 
+            
+        </h:form>
+            
+        
+        
+        <br/><br/>
+       <h:outputLink value="#{request.contextPath}/admin/index.xhtml"><h:graphicImage value="/resources/iniciar-icono-4628-48.png"/></h:outputLink>
+            
+        
+        
+          <br/>  
+                
+       
+        
+        
+        
+        
+    </h:body>
+    
+</html>

@@ -1,0 +1,218 @@
+.tablaFic{
+    height: 45%;
+    width: 45%;
+    font-size: 12px;
+    position: absolute;
+    top: 112px;
+    //left:50px;
+}
+
+.tablaUniversidad{
+    width: 45%;
+    height: 45%;
+    font-size: 12px;
+    position:absolute;
+    top: 112px;
+    left: 870px; 
+}
+
+.areaTexto{
+    
+    position: absolute;
+    top: 589px;
+}
+
+.cerrarAreaTexto{
+    
+    position: relative;
+    top: 590px;
+}
+
+.multiple{
+   width:3% ;
+   text-align:center;
+}
+
+.periodo{
+    font-size: 12px;
+    height: 15%;
+    width: 4%;
+    text-align: center;
+}
+
+.asignatura{
+    
+    font-size: 12px;
+    height: 20%;
+    width: 14%;
+  
+}
+
+.nuevoAsignatura{
+    
+    width: 68%;
+    font-size: 12px;
+}
+
+.creditos{
+    font-size: 12px;
+    height: 15%;
+    width: 3%;
+    text-align: center;
+}
+
+.info{
+    text-align: center;
+    font-size: 12px;
+    width: 3%;
+    height: 3%;
+    
+}
+
+.nuevoMultiple{
+    
+    width: 9%;
+    font-size: 12px;
+    text-align: center;
+}
+
+.nuevoCreditos{
+    
+    width: 15%;
+    font-size: 12px;
+    text-align: center;
+}
+
+
+.añadir{
+    
+    position: absolute;
+    top: 589px;
+    left: 820px;
+    text-align:center; 
+}
+
+.tablaEquivalenciasAceptado{
+    top: 660px;
+    //left: 50px;
+    height: 45%;
+    width: 45%;
+    position:absolute;
+    text-align: left;
+    font-size: 12px;
+  
+}
+
+.tablaEquivalenciasAceptadoNuevo{
+    top: 660px;
+    left: 870px;
+    height: 45%;
+    width: 50%;
+    position:absolute;
+    text-align: left;
+    font-size: 12px;
+  
+}
+
+///////////////////////////////////////////////////////
+.red{
+    background-color: #FFA8B4;
+}
+
+
+.gold{
+    
+    background-color: #FAE60F;
+    
+}
+
+
+
+
+body.blue{
+    
+    background-color: #F2FAFA;
+    //background-color: yellowgreen;
+}
+
+
+
+
+
+
+.nuevoAsignaturaAdmin{
+    
+    width: 53%;
+    font-size: 12px;
+}
+
+.tablaEquivalenciasAdmin{
+    //top: 200px;
+    //left: 200px;
+    height: 50%;
+    width: 51%;
+    position:relative;
+    //text-align: center;
+    font-size: 12px;
+    
+}
+
+.nuevoCreditosAdmin{
+    
+    width: 14%;
+    font-size: 12px;
+    text-align: center;
+        
+}
+
+
+
+.nuevoPeriodoAdmin{
+    width: 7%;
+    font-size: 12px;
+    
+}
+
+.nuevoMultipleAdmin{
+    
+    width: 8%;
+    font-size: 12px;
+    text-align: center;
+}
+
+.visible{
+    
+    
+    font-size: 12px;
+    height: 15%;
+    width: 8%;
+    
+}
+
+.tablaEquivalenciasComparadoAdmin{
+    top:252px;
+    left: 880px;
+    height: 50%;
+    width: 45%;
+    position:absolute;
+    //text-align: center;
+    font-size: 12px;
+    
+}
+
+.tablaEquivalencias{
+    //height: 65%;
+    //width: 80%;
+    position:absolute;
+    top: 660px;
+    //left:140px;
+    //text-align: center;
+    font-size: 12px;
+   
+}
+
+.preformat{
+        
+        white-space: pre-wrap;
+            
+    }    

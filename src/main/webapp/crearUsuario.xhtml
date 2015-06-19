@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+      
+    <h:head>
+        <title>crear usuario</title>
+        <h:outputStylesheet library="css" name="estilos.css"/>
+    </h:head>
+    <h:body styleClass="blue">
+        <h2 style="text-align: center">Crear usuario</h2>
+            <h:form id="form1">
+                
+                <p:growl id="msgs"/> 
+               
+                <h:panelGrid columns="2" cellpadding="5">
+                
+                <p:outputLabel for="nombre" value="Nombre:"/>
+                <p:inputText id="nombre" value="#{crearUsuarioController.nombre}"
+                             required="true"
+                             requiredMessage="el campo nombre está vacío"
+                             validatorMessage="Máximo 45 caracteres">
+                    <f:validateLength maximum="45"/>
+                </p:inputText>
+                    
+                    
+                <p:outputLabel for="ap1" value="Primer apellido"/>
+                <p:inputText id="ap1" value="#{crearUsuarioController.apellido1}"
+                             required="true"
+                             requiredMessage="el campo apellido1 está vacío"
+                             validatorMessage="Máximo 45 caracteres">
+                    <f:validateLength maximum="45"/>
+                </p:inputText>
+                
+                
+                <p:outputLabel value="Segundo apellido"/>
+                <p:inputText id="ii1" value="#{crearUsuarioController.apellido2}"
+                             validatorMessage="Máximo 45 caracteres">
+                    <f:validateLength maximum="45"/>
+                </p:inputText>
+                             
+               
+                <p:outputLabel for="login" value="Login de la UDC"/>
+                <p:inputText id="login" value="#{crearUsuarioController.login}"
+                             required="true"
+                             requiredMessage="el campo login está vacío"
+                             autocomplete="off"
+                             validatorMessage="Máximo 50 caracteres">
+                    <f:validateLength maximum="50"/>
+                </p:inputText>
+                
+                
+              
+                <p:outputLabel for="ti" value="titulacion"/>
+                <p:selectOneMenu id="ti" value="#{crearUsuarioController.titulacion}" 
+                                 required="true"  
+                                 requiredMessage="hay que intrododucir una titulacion">
+                
+                    <f:selectItem itemLabel="elige una titulacion" noSelectionOption="true"/>
+                    <f:selectItems value="#{crearUsuarioController.listaTitulaciones}"/>
+                </p:selectOneMenu>
+               
+                <p:commandButton value="crear usuario" action="#{crearUsuarioController.creaUsuario}" update=":form1:" />
+                
+                </h:panelGrid>
+               
+            </h:form>
+        
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+                   <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                       <p:graphicImage value="/resources/ajax-loader.gif" />
+                   </p:dialog>
+        <br/><br/>
+        <h:outputLink value="principal.xhtml"><h:graphicImage value="/resources/iniciar-icono-4628-48.png"/></h:outputLink>
+        
+        
+          
+    </h:body>
+</html>
+
+
+

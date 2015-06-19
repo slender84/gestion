@@ -1,0 +1,505 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
+    <h:head>
+        <title>crear asignatura</title>
+        <h:outputStylesheet library="css" name="estilos.css"/>
+    </h:head>
+    <h:body styleClass="blue">
+        <ezcomp:out/>
+        
+         <h2 style="text-align: center">asignaturas</h2>
+        
+         <h:form id="formUniversidad" style="font-size: 12px"> 
+            
+           
+            
+           
+                     <p:growl  id="msgs1"  />
+                     
+                     <h:panelGrid cellpadding="5" columns="2">
+                         <p:outputLabel value="Pais"/>
+                         <p:selectOneMenu id="pais" value="#{crearAsignaturaController.paisStr}" required="true" requiredMessage="hay que introducir un pais"
+                                          filter="true" filterMatchMode="startsWith">
+                         <p:ajax  listener="#{crearAsignaturaController.onChangePais}" update=":formUniversidad :formDetalles :formTabla :formAsignatura :formComentarios :formLeerComentario"/>
+                        <f:selectItem itemLabel="selecciona pais" noSelectionOption="true"/>
+                        <f:selectItems value="#{paisController.listaPaises}" var="pais" itemLabel="#{pais.nombre}" itemValue="#{pais.nombre}"/>
+                        </p:selectOneMenu>
+                    
+               
+                
+                   
+                        <p:outputLabel value="Universidad" rendered="#{crearAsignaturaController.checkPaisStr}"/>
+                       <p:selectOneMenu  value="#{crearAsignaturaController.universidadStr}" rendered="#{crearAsignaturaController.checkPaisStr}" required="true" requiredMessage="hay que introducir una universidad"
+                                         filter="true" filterMatchMode="contains">
+                
+                        <p:ajax listener="#{crearAsignaturaController.onChangeUniversidad}" update=":formTabla :formAsignatura :formUniversidad :formComentarios :formLeerComentario" oncomplete="PF('asignaturaBtn').filter();"/>
+                       <f:selectItem itemLabel="selecciona universidad" noSelectionOption="true" id="uni3" />
+                       <f:selectItems value="#{crearAsignaturaController.listaUniversidades}" var="universidad" itemLabel="#{universidad.nombre}" itemValue="#{universidad.nombre}"/>
+            
+                 </p:selectOneMenu>
+                
+                     </h:panelGrid>
+            </h:form>    
+            <br/><br/>
+            
+            
+            
+            
+            <h:form id="formAsignatura" style="font-size: 13px">
+            <h:panelGrid  id="asignatura" columns="4" cellpadding="2" cellspacing="10"  rendered="#{crearAsignaturaController.checkUniversidadStr}"> 
+                <f:facet name="header">
+                    
+                    <h:outputText value="Crear asignatura"/>
+                    
+                </f:facet> 
+                
+                
+                <p:outputLabel for="cod" value="Código: " />
+                <p:inputText id="cod" value="#{crearAsignaturaController.codAsignatura}"  required="true"
+                             requiredMessage="el campo código está vacío"
+                             validatorMessage=" Código debe ser de 50 caracteres como mucho">
+                             
+                    <f:validateLength  maximum="50"/>
+                
+                </p:inputText>
+                             
+                    
+                
+                <p:outputLabel for="nom" value="nombre: " />
+                <p:inputText id="nom" value="#{crearAsignaturaController.nombreAsignatura}"  required="true"
+                             requiredMessage="el campo nombre está vacío"
+                             validatorMessage="El nombre debe tener menos de 100 caracteres">
+                    <f:validateLength maximum="100"/>
+                </p:inputText>
+                
+                <p:outputLabel for="cre" value="creditos: " />
+                <p:inputText id="cre" value="#{crearAsignaturaController.creditosAsignatura}"  required="true"
+                             requiredMessage="el campo créditos está vacío"
+                             validatorMessage=" créditos debe ser un número entre 1 y 100">
+                    
+                    <f:validateDoubleRange minimum="1" maximum="100"/>
+                    <f:convertNumber locale="en-US" minFractionDigits="0" maxFractionDigits="1"/>
+                </p:inputText>
+               
+                <p:outputLabel for="per" value="periodo: " />
+                <p:selectOneMenu  id="per" value="#{crearAsignaturaController.periodoAsignatura}" required="true" requiredMessage="El campo periodo está vacío" >
+                    <f:selectItem itemLabel="anual" itemValue="anual"/>
+                    <f:selectItem itemLabel="invierno" itemValue="invierno"/>
+                    <f:selectItem itemLabel="primavera" itemValue="primavera"/>
+                </p:selectOneMenu>
+                
+                
+                
+                <p:outputLabel for="idi" value="Idioma: "/>
+                <p:selectOneMenu id="idi" value="#{crearAsignaturaController.idioma}" filter="true" filterMatchMode="startsWith" required="true">
+                    
+                    <f:selectItems value="#{crearIdiomaController.listaIdiomas}" var="idioma" itemLabel="#{idioma.idioma}" itemValue="#{idioma.idioma}"/> 
+                
+                </p:selectOneMenu>
+                
+                <p:outputLabel for="cur" value="Curso: "/>
+                <p:selectOneMenu id="cur" value="#{crearAsignaturaController.curso}" required="true">
+                    <f:selectItems value="#{cursoAcademicoController.listaCursos}" var="curso" itemLabel="#{curso.curso}" itemValue="#{curso.curso}"/>
+                    
+                </p:selectOneMenu>
+                
+                <p:outputLabel for="tit" value="Titulación: "/>
+                <p:inputText id="tit" value="#{crearAsignaturaController.titulacionAsignatura}"
+                    validatorMessage="como máximo 200 caracteres">
+                    <f:validateLength maximum="200"/>
+                </p:inputText>
+                <p:outputLabel for="fac" value="Facultad: "/>
+                              
+                <p:inputText id="fac" value="#{crearAsignaturaController.facultadAsignatura}"
+                              validatorMessage="como máximo 200 caracteres">
+                    <f:validateLength maximum="200"/>
+                </p:inputText>
+                
+                
+                <p:outputLabel for="disp" value="disponible: "/>
+                <p:selectBooleanCheckbox id="disp" value="#{crearAsignaturaController.disponible}"/>
+                
+                
+                <p:outputLabel value="web: " />
+                <p:inputText id="texto1" value="#{crearAsignaturaController.webAsignatura}" 
+                             validatorMessage="La web debe tener como máximo 500 caracteres">
+                    <f:validateLength maximum="500"/>
+                </p:inputText>
+                    
+                <p:watermark for="texto1" value="http://"/>
+                <h:outputLabel/>
+                
+                
+                <p:outputLabel value="Comentario: " />
+                <p:inputTextarea value="#{crearAsignaturaController.comentario}" cols="50" rows="8" />
+                
+                
+                
+                
+                
+               
+                <p:commandButton  oncomplete="PF('asignaturaBtn').filter()" value="crear asignatura" action="#{crearAsignaturaController.creaAsignatura}"  ajax="true"  update=":formAsignatura :formTabla: :formUniversidad"/>
+                
+                
+            
+          </h:panelGrid> 
+        </h:form>
+        
+            <br/><br/>
+        
+        <h:form id="formTabla" >
+            <p:outputPanel id="listaAsignaturas">
+                
+                <p:dataTable id="tablaAsignaturas" value="#{crearAsignaturaController.listaAsignaturas}" var="asignatura"
+                             emptyMessage="no hay asignaturas"
+                             rows="10"
+                             paginator="true"
+                             widgetVar="asignaturaBtn"
+                             selection="#{crearAsignaturaController.selectedAsignaturas}"
+                             rowKey="#{asignatura.id}"
+                             rendered="#{crearAsignaturaController.checkTabla}"
+                             filteredValue="#{crearAsignaturaController.filteredAsignaturas}"
+                             styleClass="borderless"
+                             paginatorPosition="bottom"
+                              
+                              
+                            >
+                              
+                    
+                    
+                    <f:facet name="header">
+                       
+                        <h:outputText value="#{crearAsignaturaController.universidadStr}"/>
+                        &nbsp;
+                        &nbsp;
+                        <p:selectOneMenu value="#{crearAsignaturaController.seleccionCurso}">
+                            <p:ajax event="change" listener="#{crearAsignaturaController.cambioCurso}" update=":formTabla :formDetalles :formComentarios :formLeerComentario" oncomplete="PF('asignaturaBtn').clearFilters();"/>
+                            <f:selectItems value="#{crearAsignaturaController.listaCursos}" var="curso" itemLabel="#{curso.curso}" itemValue="#{curso.curso}"/>
+                        
+                        
+                        </p:selectOneMenu>
+                        
+                        
+                    </f:facet>
+                
+                    <p:column headerText="código" sortBy="#{asignatura.id.codAsignatura}" styleClass="codAsignatura" filterBy="#{asignatura.id.codAsignatura}" filterMatchMode="startsWith">
+                        
+                        <h:outputText value="#{asignatura.id.codAsignatura}"/>
+                        
+                    </p:column>
+                
+                    <p:column headerText="nombre" sortBy="#{asignatura.nombreAsignatura}" filterBy="#{asignatura.nombreAsignatura}" filterMatchMode="contains" styleClass="nombreAsignatura">
+                        <h:outputLink value="#{asignatura.webAsignatura}" target="_blank" rendered="#{not empty asignatura.webAsignatura}">#{asignatura.nombreAsignatura}</h:outputLink>  
+                        <h:outputText value="#{asignatura.nombreAsignatura}" rendered="#{empty asignatura.webAsignatura}"/>
+                        
+                    </p:column>
+                
+                    <p:column headerText="periodo" sortBy="#{asignatura.periodo}" styleClass="periodoAsignatura">
+                        
+                        <h:outputText value="#{asignatura.periodo}"/>
+                        
+                    </p:column>
+                    
+                    <p:column headerText="creditos" sortBy="#{asignatura.creditos}" styleClass="creditosAsignatura">
+                        
+                        <h:outputText value="#{asignatura.creditos}">
+                            <f:convertNumber locale="en-US"  minFractionDigits="0" maxFractionDigits="1"/>
+                        </h:outputText>
+                        
+                    </p:column>
+                    
+                    <p:column headerText="Disp." sortBy="#{asignatura.disponible}" filterBy="#{asignatura.disponible}" filterMatchMode="exact" styleClass="dispAsignatura">
+                        <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('asignaturaBtn').filter();">
+                            <f:selectItem itemLabel="Todos" itemValue="#{null}"/>
+                            <f:selectItem itemLabel="si" itemValue="true"/>
+                            <f:selectItem itemLabel="no" itemValue="false"/>
+                        </p:selectOneMenu>
+                        </f:facet>
+                        <h:outputText value="si" rendered="#{asignatura.disponible eq true}"/>
+                        <h:outputText value="no" rendered="#{asignatura.disponible eq false}"/>
+                            
+                    
+                    </p:column>
+                    
+                    <p:column headerText="Comentarios" styleClass="webAsignatura">
+                        <p:commandLink action="#{crearAsignaturaController.verComentarios}"  update=":formComentarios :formDetalles" oncomplete="PF('comentariosBtn').filter();">
+                            <f:setPropertyActionListener value="#{asignatura}" target="#{crearAsignaturaController.selectedAsignatura}"/>
+                            <h:graphicImage value="/resources/img/comment24.png" title="Comentarios"/>
+                            
+                        
+                        </p:commandLink>
+                        
+                        
+                    </p:column>
+                    
+                    <p:column headerText="detalles/edición" styleClass="detallesAsignatura">
+                        
+                        <p:commandLink id="detailBtn" process=":formTabla:" action="#{crearAsignaturaController.verDetalles}" update=":formComentarios :formDetalles:" ajax="true">
+                        
+                            <f:setPropertyActionListener value="#{asignatura}" target="#{crearAsignaturaController.selectedAsignatura}"/>
+                            <h:graphicImage value="/resources/img/edit26.png" title="detalles/editar"/>
+                        </p:commandLink>
+                        
+                    </p:column>
+                    
+                    <p:column selectionMode="multiple" styleClass="multiple"/>
+               
+                    
+                         <f:facet name="footer">
+                             <p:commandLink id="deleteBtn"  onclick="if (! confirm('¿seguro que quieres eliminar?')) return false" process=":formTabla:" update=":formTabla: :formDetalles: :formAsignatura :formUniversidad :formComentarios :formLeerComentario" action="#{crearAsignaturaController.eliminaAsignaturasLista}"  
+                               oncomplete="PF('asignaturaBtn').filter()">
+                                 <h:graphicImage value="/resources/img/trash26.png" title="eliminar"/>
+                             </p:commandLink>
+                         </f:facet>
+                    
+                
+                </p:dataTable>
+                             
+            
+                
+            </p:outputPanel>
+            
+            </h:form>
+            
+            <h:form id="formDetalles" style="font-size: 13px">
+                
+            <h:panelGrid id="detallesAsignatura" columns="4" cellpadding="6" rendered="#{crearAsignaturaController.checkDetalles}">
+                <h3 style="text-align: center">Detalles</h3>
+                <p:outputLabel/>
+                <p:outputLabel/>
+                <p:outputLabel/>
+                <p:outputLabel value="nombre"/>
+                <p:inputText value="#{crearAsignaturaController.selectedAsignatura.nombreAsignatura}" required="true" requiredMessage="El campo nombre asignatura no puede estar vacío">
+                    <f:validateLength maximum="100"/>
+                    
+                </p:inputText>
+                 <p:outputLabel/>
+                <p:outputLabel/>
+                <p:outputLabel for="cr" value="creditos" />
+                <p:inputText id="cr" value="#{crearAsignaturaController.selectedAsignatura.creditos}" required="true"
+                             validatorMessage="Debe de ser un número entre 1 y 100">
+                    <f:validateDoubleRange minimum="1" maximum="100"/>
+                </p:inputText>
+                    
+                
+                <p:outputLabel value="web" />
+                <p:inputText id="texto2" value="#{crearAsignaturaController.selectedAsignatura.webAsignatura}"
+                             validatorMessage="Máximo 500 caracteres">
+                    <f:validateLength maximum="500"/>
+                </p:inputText>    
+                <p:watermark for="texto2" value="http://"/>
+                <h:outputLabel/>
+                
+                
+               
+                <p:outputLabel for="per" value="periodo" />
+                <p:selectOneMenu id="per" value="#{crearAsignaturaController.selectedAsignatura.periodo}" required="true" >
+                    <f:selectItem itemLabel="anual" itemValue="anual"/>
+                    <f:selectItem itemLabel="invierno" itemValue="invierno"/>
+                    <f:selectItem itemLabel="primavera" itemValue="primavera"/>
+                </p:selectOneMenu>
+                
+                
+                
+                
+                <p:outputLabel for="idi" value="Idioma: "/>
+                <p:selectOneMenu id="idi" value="#{crearAsignaturaController.selectedAsignatura.idioma}" filter="true" filterMatchMode="startsWith" required="true">
+                    <f:selectItems value="#{crearIdiomaController.listaIdiomas}" var="idioma" itemLabel="#{idioma.idioma}" itemValue="#{idioma.idioma}"/> 
+                
+                </p:selectOneMenu>
+                
+                <p:outputLabel for="cur" value="Curso: "/>
+                <p:selectOneMenu id="cur" value="#{crearAsignaturaController.selectedAsignatura.curso}" required="true">
+                    <f:selectItems value="#{cursoAcademicoController.listaCursos}" var="curso" itemLabel="#{curso.curso}" itemValue="#{curso.curso}"/>
+                    
+                </p:selectOneMenu>
+                
+                <p:outputLabel for="tit" value="Titulación: "/>
+                <p:inputText id="tit" value="#{crearAsignaturaController.selectedAsignatura.titulacion}" validatorMessage="Máximo 200 caracteres">
+                    <f:validateLength maximum="200"/>
+                </p:inputText>
+                    
+                <p:outputLabel for="fac" value="Facultad: "/>
+                <p:inputText id="fac" value="#{crearAsignaturaController.selectedAsignatura.facultad}" validatorMessage="Máximo 200 caracteres">
+                    <f:validateLength maximum="200"/>
+                </p:inputText>
+                
+                <p:outputLabel for="disp" value="disponible: "/>
+                <p:selectBooleanCheckbox id="disp" value="#{crearAsignaturaController.selectedAsignatura.disponible}"/>
+                
+                <p:outputLabel value="Nuevo comentario: "/>
+                <p:inputTextarea value="#{crearAsignaturaController.comentario}" cols="50" rows="8"/>
+                
+                
+                <p:commandButton process=":formDetalles:" id="actualizaBtn" value="editar" action="#{crearAsignaturaController.editar()}" update=":formDetalles: :formTabla: :formUniversidad :formAsignatura" oncomplete="PF('asignaturaBtn').filter()"
+                                  />
+                <p:commandButton id="cancelBtn" value="cerrar" action="#{crearAsignaturaController.cerrar}" update=":formDetalles" process="cancelBtn"
+                                 />
+           
+            </h:panelGrid>
+                <br/>
+              </h:form>   
+                <h:form id="formComentarios" style="font-size: 13px">
+                
+                        
+            <p:dataTable rendered="#{crearAsignaturaController.checkComentarios}" value="#{crearAsignaturaController.listaComentarios}" id="tablaComentarios"
+                             var="comentario" rowKey="#{comentario.idcomentario}"
+                             paginator="true" rows="10"
+                             selection="#{crearAsignaturaController.selectedComentarios}"
+                             paginatorPosition="bottom"
+                             widgetVar="comentariosBtn"
+                             styleClass="borderless"
+                             emptyMessage="No hay comentarios"
+                             filteredValue="#{crearAsignaturaController.filteredComentarios}"
+                             >
+                    
+                <f:facet name="header">
+                    <p:outputLabel value="Comentarios de: "/>
+                    &nbsp;       
+                    <h:outputText value="#{crearAsignaturaController.selectedAsignatura.nombreAsignatura}"/>
+                    
+                </f:facet>
+                    
+                <p:column style="text-align: center" headerText="Autor" filterBy="#{comentario.usuario.login}" sortBy="#{comentario.usuario.login}" filterMatchMode="contains">
+                
+                    <h:outputText value="#{comentario.usuario.login}"/>
+                
+                </p:column>
+                
+                
+                
+                
+                
+                <p:column style="text-align: center" headerText="fecha" sortBy="#{comentario.fecha}">
+                        <h:outputText value="#{comentario.fecha}">
+                            <f:convertDateTime pattern="dd-MM-yyyy HH:mm"/>
+                        </h:outputText>
+                    </p:column>
+                
+                
+               
+                            
+                <p:column style="text-align: center" headerText="estado" filterBy="#{comentario.estado}" filterMatchMode="exact" sortBy="#{comentario.estado}">
+                        <f:facet name="filter">  
+                            
+                            <p:selectOneMenu onchange="PF('comentariosBtn').filter();">
+                                
+                                <f:selectItem value="#{null}" itemLabel="Todos" noSelectionOption="true"/>
+                                <f:selectItem itemValue="pendiente" itemLabel="pendiente"/>
+                                <f:selectItem itemValue="aceptado" itemLabel="aceptado"/>
+                                
+                            </p:selectOneMenu>
+                            
+                        </f:facet>
+                                <h:outputText value="#{comentario.estado}"/>
+                    
+                    </p:column>
+                <p:column headerText="ver/editar" style="text-align: center">
+                                    
+                    <p:commandLink action="#{crearAsignaturaController.verComentario}" update=":formLeerComentario" >
+                                        <f:setPropertyActionListener value="#{comentario}" target="#{crearAsignaturaController.selectedComentario}"/>
+                                        <h:graphicImage value="/resources/img/edit26.png" title="ver/editar comentario"/>
+                                    </p:commandLink>
+                                    
+                                </p:column>
+                            
+                                <p:column selectionMode="multiple" styleClass="multiple"/>
+                
+                                <p:columnGroup type="footer">
+                                    <p:row>
+                                        <p:column/>
+                                        <p:column>
+                                            
+                                            <f:facet name="footer">
+                                                
+                                                 
+                                                <p:commandLink oncomplete="PF('comentariosBtn').filter();" onclick="if (! confirm('¿seguro que quieres eliminar?')) return false"  action="#{crearAsignaturaController.eliminarComentarios}" update=":formLeerComentario :formUniversidad">
+                                
+                                    
+                                                     <h:graphicImage value="/resources/img/trash26.png" title="eliminar comentario"/>
+                                
+                                              </p:commandLink> 
+                                                
+                                                
+                                            </f:facet>
+                                            
+                                            
+                                        </p:column>
+                                        <p:column/>
+                                        <p:column>
+                                            
+                                            <f:facet name="footer">
+                                                
+                                                <p:commandLink value="cerrar" action="#{crearAsignaturaController.cerrarComentarios}" update=":formComentarios :formLeerComentario"/>
+                                                
+                                            </f:facet>
+                                             
+                                        </p:column>
+                                        <p:column/>
+                                        
+                                    </p:row>
+                                    
+                                </p:columnGroup>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                            
+                            
+                </p:dataTable>
+
+                   
+                    
+            
+            
+        </h:form>
+                
+        <br/><br/>
+        
+        <h:form id="formLeerComentario">
+            <h:panelGrid columns="2" cellpadding="5" rendered="#{crearAsignaturaController.checkComentario}">
+                <p:outputLabel value="Comentario: "/>
+                               <p:inputTextarea readonly="true" value="#{crearAsignaturaController.selectedComentario.texto}" cols="50" rows="8"/>
+            <p:outputLabel value="Estado: "/>
+            
+            <h:outputText value="#{crearAsignaturaController.selectedComentario.estado}"/>
+            <p:commandButton value="cambiar" action="#{crearAsignaturaController.aprobarOrechazar}" update=":formComentarios :formUniversidad :formLeerComentario"/>
+            <p:commandButton id="cerrarComentarioBtn" value="cerrar" action="#{crearAsignaturaController.cerrarComentario}" process="cerrarComentarioBtn" update=":formLeerComentario"/>
+            
+            </h:panelGrid>
+            
+        </h:form>
+                
+                
+        <br/><br/><br/>
+        
+            
+       
+       
+        
+        
+         <h:outputLink value="index.xhtml"><h:graphicImage value="/resources/iniciar-icono-4628-48.png"/></h:outputLink>
+          <br/>  
+        
+        
+        
+        
+    
+
+        
+        
+    </h:body>
+</html>
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/gestordb?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">admin</property>
+    <mapping class="com.mycompany.gestion.entities.Configuracion"/>
+    <mapping class="com.mycompany.gestion.entities.Movilidad"/>
+    <mapping class="com.mycompany.gestion.entities.Pais"/>
+    <mapping class="com.mycompany.gestion.entities.ComentarioAsignatura"/>
+    <mapping class="com.mycompany.gestion.entities.Cronica"/>
+    <mapping class="com.mycompany.gestion.entities.EstadoMovilidad"/>
+    <mapping class="com.mycompany.gestion.entities.Equivalencia"/>
+    <mapping class="com.mycompany.gestion.entities.Contrato"/>
+    <mapping class="com.mycompany.gestion.entities.MiembroGrupoAsignaturaB"/>
+    <mapping class="com.mycompany.gestion.entities.MiembroGrupoAsignaturaA"/>
+    <mapping class="com.mycompany.gestion.entities.InfoCuenta"/>
+    <mapping class="com.mycompany.gestion.entities.Mensaje"/>
+    <mapping class="com.mycompany.gestion.entities.Cursoacademico"/>
+    <mapping class="com.mycompany.gestion.entities.Estado"/>
+    <mapping class="com.mycompany.gestion.entities.Universidad"/>
+    <mapping class="com.mycompany.gestion.entities.Usuario"/>
+    <mapping class="com.mycompany.gestion.entities.Asignatura"/>
+    <mapping class="com.mycompany.gestion.entities.Curso"/>
+    <mapping class="com.mycompany.gestion.entities.Idioma"/>
+    <mapping class="com.mycompany.gestion.entities.Direccion"/>
+  </session-factory>
+</hibernate-configuration>

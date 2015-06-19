@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
+    <h:head>
+        <title>Escribir comentario</title>
+        <h:outputStylesheet library="css" name="estilos.css"/>
+        <h:outputScript library="js" name="funciones.js"/>
+        
+    </h:head>
+    <h:body>
+        <ezcomp:out1/>
+        <h2 style="text-align: center">Escribir comentario</h2>
+        
+        
+        <h:form id="formTexto">
+            <p:growl/>
+            <h:panelGrid columns="2" cellpadding="1">
+            <p:outputLabel value="autor:"/>
+            <p:inputText value="#{misCronicasController.alias}" id="focus" title="Si se deja en blanco, se utilizará el nombre y apellido de usuario"/>
+            <p:tooltip id="mostrar" for="focus" showEvent="focus" hideEvent="blur" />
+            
+            </h:panelGrid>
+            <p:inputTextarea id="editor" widgetVar="editorWidget" value="#{misCronicasController.texto}" cols="60" rows="10" 
+                             required="true" requiredMessage="El texto está vacío"/>
+                      
+ 
+    <h:panelGrid columns="2" style="margin-top: 10px">
+        <p:commandButton widgetVar="enviar" value="Enviar" action="#{misCronicasController.enviarCronica}" icon="ui-icon-disk" update="formTexto"
+                         rendered="#{misCronicasController.btnActivados}"/>
+ 
+        <p:commandButton  rendered="#{misCronicasController.btnActivados}" widgetVar="limpiar" value="Limpiar" type="button"   icon="ui-icon-close" />
+        
+    </h:panelGrid>
+            
+            
+            
+        </h:form>
+        
+        
+         <br/>
+        
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+                   <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                       <p:graphicImage value="/resources/ajax-loader.gif" />
+                   </p:dialog>    
+            
+            
+             <h:outputLink value="index.xhtml"><h:graphicImage value="/resources/iniciar-icono-4628-48.png"/></h:outputLink>
+            
+        
+        
+            
+                
+       
+        
+        
+        
+    </h:body>
+</html>
+
